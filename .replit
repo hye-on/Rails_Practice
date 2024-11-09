@@ -1,7 +1,9 @@
-run = "RAILS_ENV=development bundle exec rails server --binding=0.0.0.0"
+run = "RAILS_ENV=development bundle exec rails server --binding=0.0.0.0 & yarn vite dev --host"
+
+
 hidden = [".bundle"]
 entrypoint = "app/controllers/application_controller.rb"
-modules = ["ruby-3.2"]
+modules = ["bun-1.1", "nodejs-20", "ruby-3.2"]
 
 [env]
 RACK_MINI_PROFILER = "off"
@@ -15,7 +17,7 @@ requiredFiles = [".replit", "replit.nix"]
 
 
 [deployment]
-run = "RAILS_ENV=production bundle exec rails server --binding=0.0.0.0"
+run = "yarn vite build && RAILS_ENV=production bundle exec rails server --binding=0.0.0.0"
 deploymentTarget = "gce"
 
 [[ports]]
