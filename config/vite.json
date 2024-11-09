@@ -1,0 +1,4 @@
+{
+  "entrypointsDir": "app/frontend/entrypoints",
+  "outDir": "public/vite"
+}
