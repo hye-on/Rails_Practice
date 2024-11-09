@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @banned_word %>
+
+<div>
+  <%= link_to "Edit this banned word", edit_banned_word_path(@banned_word) %> |
+  <%= link_to "Back to banned words", banned_words_path %>
+
+  <%= button_to "Destroy this banned word", @banned_word, method: :delete %>
+</div>
