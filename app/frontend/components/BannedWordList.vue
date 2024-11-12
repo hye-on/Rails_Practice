@@ -74,7 +74,7 @@ export default {
 
     async loadBannedWords() {
       try {
-        const response = await axios.get('/banned-words/index_json')
+        const response = await axios.get('/banned-words/index-json')
         this.bannedWords = response.data
       } catch (error) {
         console.error('금지어 목록 로드 실패:', error)
