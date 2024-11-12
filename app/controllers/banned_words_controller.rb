@@ -13,9 +13,69 @@ class BannedWordsController < ApplicationController
     }
   end
 
-  # GET /banned-words or /banned_words.json
+  def list_ui_schema
+    render json: {
+      fields: [
+        {
+          name: 'word',
+          label: '금지 단어',
+          type: 'text',
+          required: true,
+          sortable: true
+        },
+        {
+          name: 'policy',
+          label: '정책',
+          type: 'select',
+          required: true,
+          options: %w[ban warn]
+        },
+        {
+          name: 'match_target',
+          label: '매칭 대상',
+          type: 'select',
+          required: true,
+          options: %w[title_only content_only both]
+        }
+      ],
+      actions: [
+        {
+          type: 'delete',
+          label: '삭제',
+          confirmMessage: '정말 삭제하시겠습니까?',
+          style: {
+            color: 'danger'
+          }
+        },
+        {
+          type: 'edit',
+          label: '수정',
+          confirmMessage: '정말 수정하시겠습니까?',
+          style: {
+            color: 'primary'
+          },
+          path: '/banned-words/:id/edit' 
+        }
+      ],
+      layout: {
+        type: 'table',
+        pagination: {
+          itemsPerPage: 10
+        }
+      }
+    }
+  end
+
+  # HTML 요청을 위한 index 액션
   def index
+    # HTML 뷰 렌더링을 위해 모든 금지 단어 로드
     @banned_words = BannedWord.all
+  end
+
+  # JSON 응답을 위한 index_json 액션
+  def index_json
+    banned_words = BannedWord.all
+    render json: banned_words
   end
 
   # GET /banned-words/1 or /banned_words/1.json
@@ -59,11 +119,10 @@ class BannedWordsController < ApplicationController
 
   # DELETE /banned-words/1 or /banned_words/1.json
   def destroy
-    @banned_word.destroy!
-
+    banned_word = BannedWord.find(params[:id])
+    banned_word.destroy
     respond_to do |format|
-      format.html { redirect_to banned_words_url, notice: 'Banned word was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :no_content } # JSON 응답으로 처리
     end
   end
 
