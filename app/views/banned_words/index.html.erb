@@ -1,14 +1,7 @@
-<p style="color: green"><%= notice %></p>
+<h1>금지 단어 리스트</h1>
 
-<h1>Banned words</h1>
-
-<div id="banned_words">
-  <% @banned_words.each do |banned_word| %>
-    <%= render banned_word %>
-    <p>
-      <%= link_to "Show this banned word", banned_word %>
-    </p>
-  <% end %>
+<div id="bannedWordList"></div>
+  <br>
 </div>
 
 <%= link_to "New banned word", new_banned_word_path %>
